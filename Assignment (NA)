@@ -173,7 +173,43 @@ conf t
   access-class FWP-S1-VTY in
   end
   
-  
+
+3. Activity: Prevent all traffic from FINANCE from reaching the NET (4.4.4.4)
+ACL Type:  STANDARD
+Name: FWP-NOFIN
+
+!@R4
+conf t
+ ip access-list standard FWP-NOFIN 
+  deny 10.2.3.0 0.0.0.31
+  permit any
+ !
+ int e1/0
+  ip access-group FWP-NOFIN in
+ int e1/1
+  ip access-group FWP-NOFIN in
+  end
+ 
+ 
+4. Configure an EXTENDED ACL that prevents traffic from :
+FINANCE:
+   P1 cannot PING, SSH, TELNET
+   P1v2 can only PING
+   
+   
+IT: 
+   Allow all traffic
+   P2 
+
+
+
+
+
+
+
+
+
+
 
 1. S1 (File Server) should only be accessible to FINANCE   (SVI)
 2. Finance (P1 & P1v2) can only ping each.                 (SVI)
